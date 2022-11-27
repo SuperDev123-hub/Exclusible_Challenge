@@ -26,33 +26,49 @@ describe('Staking', function () {
         await (await staking.connect(admin).initialize(admin.address)).wait();
     });
 
-    it('deposit eth', async function () {
-        const amount = BigNumber.from(10).pow(18); // 1 eth;
-        const provider = waffle.provider;
-        await (await staking.connect(user1).deposit({ value: amount })).wait();
-        await expect(await provider.getBalance(staking.address)).to.be.equal(amount);
-    });
+    // it('deposit eth', async function () {
+    //     const amount = BigNumber.from(10).pow(18); // 1 eth;
+    //     const provider = waffle.provider;
+    //     await (await staking.connect(user1).deposit({ value: amount })).wait();
+    //     await expect(await provider.getBalance(staking.address)).to.be.equal(amount);
+    // });
 
-    it('admin add reward', async function () {
-        const amount = BigNumber.from(10).pow(20); // 100 eth;
-        const provider = waffle.provider;
-        await (await staking.connect(admin).addReward({ value: amount })).wait();
-        await expect(await provider.getBalance(staking.address)).to.be.equal(amount);
-    });
+    // it('admin add reward', async function () {
+    //     const amount = BigNumber.from(10).pow(20); // 100 eth;
+    //     const provider = waffle.provider;
+    //     await (await staking.connect(admin).addReward({ value: amount })).wait();
+    //     await expect(await provider.getBalance(staking.address)).to.be.equal(amount);
+    // });
 
-    it("normal user can't add reward", async function () {
-        await expect(staking.connect(user1).addReward({ value: BigNumber.from(10).pow(18) })).to.be.revertedWith(
-            'Ownable: caller is not the owner'
-        );
-    });
+    // it("normal user can't add reward", async function () {
+    //     await expect(staking.connect(user1).addReward({ value: BigNumber.from(10).pow(18) })).to.be.revertedWith(
+    //         'Ownable: caller is not the owner'
+    //     );
+    // });
 
-    it('check reward amount', async function () {
+    it('check reward amount usecase-1', async function () {
         const aAmount = BigNumber.from(10).pow(20); //100 eth
         const bAmount = BigNumber.from(3).mul(BigNumber.from(10).pow(20)); //300 eth
-        const rewardAmount = BigNumber.from(2).mul(BigNumber.from(10).pow(20)); //300 eth
+        const rewardAmount = BigNumber.from(2).mul(BigNumber.from(10).pow(20)); //200 eth
 
-        await expect(staking.connect(user1).addReward({ value: BigNumber.from(10).pow(18) })).to.be.revertedWith(
-            'Ownable: caller is not the owner'
-        );
+        await (await staking.connect(user1).deposit({ value: aAmount })).wait();
+        await (await staking.connect(user2).deposit({ value: bAmount })).wait();
+        await (await staking.connect(admin).addReward({ value: rewardAmount })).wait();        
+        
+        await expect(staking.connect(user1).withdarw()).to.emit(staking, 'WithdrawEvent').withArgs(user1.address, aAmount.add(rewardAmount.div(4).mul(1)));
+        await expect(staking.connect(user2).withdarw()).to.emit(staking, 'WithdrawEvent').withArgs(user2.address, bAmount.add(rewardAmount.div(4).mul(3)));
     });
+
+    it('check reward amount usecase-2', async function () {
+      const aAmount = BigNumber.from(10).pow(20); //100 eth
+      const bAmount = BigNumber.from(3).mul(BigNumber.from(10).pow(20)); //300 eth
+      const rewardAmount = BigNumber.from(2).mul(BigNumber.from(10).pow(20)); //200 eth
+
+      await (await staking.connect(user1).deposit({ value: aAmount })).wait();
+      await (await staking.connect(admin).addReward({ value: rewardAmount })).wait();        
+      await (await staking.connect(user2).deposit({ value: bAmount })).wait();
+      
+      await expect(staking.connect(user1).withdarw()).to.emit(staking, 'WithdrawEvent').withArgs(user1.address, aAmount.add(rewardAmount));
+      await expect(staking.connect(user2).withdarw()).to.emit(staking, 'WithdrawEvent').withArgs(user2.address, bAmount);
+  });
 });
