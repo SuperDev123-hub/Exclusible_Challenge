@@ -73,10 +73,10 @@ describe('Staking', function () {
     });
 
     it('check reward amount usecase-3', async function () {
-        const aAmount = BigNumber.from(10).pow(20); //100 eth
-        const bAmount = BigNumber.from(2).mul(BigNumber.from(10).pow(20)); //200 eth
-        const rewardAmount = BigNumber.from(3).mul(BigNumber.from(10).pow(20)); //300 eth
-        const a1Amount = BigNumber.from(1).mul(BigNumber.from(10).pow(20)); //100 eth
+        const aAmount       = BigNumber.from(10).pow(20); //100 eth
+        const bAmount       = BigNumber.from(2).mul(BigNumber.from(10).pow(20)); //200 eth
+        const rewardAmount  = BigNumber.from(3).mul(BigNumber.from(10).pow(20)); //300 eth
+        const a1Amount      = BigNumber.from(1).mul(BigNumber.from(10).pow(20)); //100 eth
         const reward1Amount = BigNumber.from(4).mul(BigNumber.from(10).pow(20)); //400 eth
 
         await (await staking.connect(user1).deposit({ value: aAmount })).wait();
@@ -94,12 +94,12 @@ describe('Staking', function () {
     });
 
     it('check reward amount usecase-4', async function () {
-      const aAmount = BigNumber.from(10).pow(20); //100 eth
-      const bAmount = BigNumber.from(2).mul(BigNumber.from(10).pow(20)); //200 eth
-      const rewardAmount = BigNumber.from(3).mul(BigNumber.from(10).pow(20)); //300 eth
-      const a1Amount = BigNumber.from(1).mul(BigNumber.from(10).pow(20)); //100 eth
+      const aAmount       = BigNumber.from(10).pow(20); //100 eth
+      const bAmount       = BigNumber.from(2).mul(BigNumber.from(10).pow(20)); //200 eth
+      const rewardAmount  = BigNumber.from(3).mul(BigNumber.from(10).pow(20)); //300 eth
+      const a1Amount      = BigNumber.from(1).mul(BigNumber.from(10).pow(20)); //100 eth
       const reward1Amount = BigNumber.from(4).mul(BigNumber.from(10).pow(20)); //400 eth
-      const a2Amount = BigNumber.from(1).mul(BigNumber.from(10).pow(20)); //100 eth
+      const a2Amount      = BigNumber.from(1).mul(BigNumber.from(10).pow(20)); //100 eth
       const reward2Amount = BigNumber.from(5).mul(BigNumber.from(10).pow(20)); //500 eth
 
       await (await staking.connect(user1).deposit({ value: aAmount })).wait();

@@ -55,10 +55,8 @@
         "prettier": "prettier --write '{test,utils,eth_scripts,types,deployments,matic_scripts}/**/*.{ts,js,json}' && prettier --write '*.{ts,js,json}'",        
         "listAccount": "npx hardhat accounts --network",
         "removeSolidityLogs": "npx hardhat remove-logs",
-        "flatten": "npx waffle flatten",
-        "balances": "npx hardhat balances --network",
-        "deploy:plasma": "npx hardhat run ./eth_scripts/plasma.ts --network",
-        "deploy:factory": "npx hardhat run ./eth_scripts/staking.ts --network"
+        "flatten": "npx waffle flatten",        
+        "deploy": "npx hardhat run ./scripts/deploy.ts --network"
     },
     "dependencies": {
         "@chainlink/contracts": "^0.4.1",
