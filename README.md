@@ -28,3 +28,12 @@ yarn deploy
 ```
 Deploy contracts to goerli network and verify the contracts
 
+Contract addresses 
+Implementation address
+```
+https://goerli.etherscan.io/address/0x22Decf34415efc973Ca2E6B40Fa405B88DA0A204#code
+```
+Proxy address
+```
+https://goerli.etherscan.io/address/0x767f339BFbbD7DB0efE8E1f5D88033d55efD9150
+```
