@@ -44,7 +44,19 @@ const config: HardhatUserConfig = {
         timeout: 20000000,
     },
     etherscan: {
-        apiKey: process.env.ETHERSCAN,
+        apiKey: {
+            goerli: process.env.ETHERSCAN,
+        },
+        customChains: [
+            {
+                network: 'goerli',
+                chainId: 5,
+                urls: {
+                    apiURL: 'https://api-goerli.etherscan.io/api',
+                    browserURL: 'https://goerli.etherscan.io',
+                },
+            },
+        ],
     },
     gasReporter: {
         gasPrice: 30,

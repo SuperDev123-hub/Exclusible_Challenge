@@ -7,7 +7,7 @@ import '@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol';
 import '@openzeppelin/contracts-upgradeable/security/ReentrancyGuardUpgradeable.sol';
 import '../library/Errors.sol';
 
-import 'hardhat/console.sol';
+// import 'hardhat/console.sol';
 contract Staking is Initializable, OwnableUpgradeable, PausableUpgradeable, ReentrancyGuardUpgradeable {
 
     struct UserInfo {
@@ -76,7 +76,7 @@ contract Staking is Initializable, OwnableUpgradeable, PausableUpgradeable, Reen
         user.amount = 0;
         user.vestedReward = 0;
         user.rewardDebt = 0;
-        
+
         payable(msg.sender).transfer(amount);
         emit WithdrawEvent(msg.sender, amount);
         
