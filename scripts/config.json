@@ -1,6 +1,6 @@
 {
   "goerli": {
-    "Staking_Impl": "0x624bCd11c44143131f425c54cb41046AD2De057B",
-    "Staking_Proxy": "0x0558c20D1Aa4d018d43564d81C07C3b42485C20A"
+    "Staking_Impl": "0x22Decf34415efc973Ca2E6B40Fa405B88DA0A204",
+    "Staking_Proxy": "0x767f339BFbbD7DB0efE8E1f5D88033d55efD9150"
   }
 }

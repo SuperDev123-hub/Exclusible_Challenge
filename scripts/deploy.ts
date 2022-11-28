@@ -23,13 +23,16 @@ async function main() {
         proxyAdmin.address
     );
     staking = await deployHelper.getStaking(proxy.address);
-
+    
+    await induceDelay(5000);
     console.log("Initialize...");
     await (await staking.connect(admin).initialize(admin.address)).wait();
-
+    
     console.log('Logic address : ', stakingContractLogic.address);
     console.log('Proxy address : ', proxy.address);
-
+    
+    await induceDelay(5000);
+    console.log("Verify...");
     await run('verify:verify', {
         address: stakingContractLogic.address,
         contract: 'contracts/staking/Staking.sol:Staking',
@@ -44,3 +47,11 @@ main().catch((error) => {
     console.error(error);
     process.exitCode = 1;
 });
+
+
+async function induceDelay(ts: number) {
+    console.log(`Inducing delay of ${ts} ms`);
+    return new Promise((resolve) => {
+        setTimeout(resolve, ts);
+    });
+}
